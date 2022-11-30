@@ -68,7 +68,8 @@ function mainMenu(person, people) {
       // HINT: Look for a person-object stringifier utility function to help
       let personInfo = displayPerson(person[0]);
       alert(personInfo);
-      break;
+      return app(people);
+
 
     case "family":
       //! TODO #2: Declare a findPersonFamily function //////////////////////////////////////////
@@ -76,14 +77,14 @@ function mainMenu(person, people) {
 
       let personFamily = findPersonFamily(person[0], people);
       alert(personFamily);
-      break;
+      return app(people);
 
     case "descendants":
       //! TODO #3: Declare a findPersonDescendants function //////////////////////////////////////////
       // HINT: Review recursion lecture + demo for bonus user story
       let personDescendants = findPersonDescendants(person[0], people);
       alert(personDescendants);
-      break;
+      return app(people);
 
     case "restart":
       // Restart app() from the very beginning
@@ -304,5 +305,5 @@ function searchByTraits(people) {
     array = matches;
   }
 
-  return [];
+  return app(people);
 }
