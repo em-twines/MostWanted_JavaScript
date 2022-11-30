@@ -269,41 +269,59 @@ function searchByTraits(people) {
   let array = people;
   let pairs;
   let answer = "yes";
+  
   while (answer == "yes") {
     trait = prompt(
-      "Please type in search criteria without spaces then value. Separate multiple criteria by a semicolon (no spaces around the semicolon). You can also select 'restart' or 'quit'."
-    );
-    pairs = trait.split(";");
-    //key trait[0];
-    //value trait[1];
+    "Please type in search criteria without spaces then value. Separate multiple criteria by a semicolon (no spaces around the semicolon). You can also select 'restart' or 'quit'."
+    );     
+        // if(trait.length > 1 && !trait.includes(';')){
+        //     alert('Invalid input, please try again.')
+        //     continue;
+        // }
+        pairs = trait.split(";");
+        //key trait[0];
+        //value trait[1];
 
-    for (let i = 0; i < pairs.length; i++) {
-      pair = pairs[i].split(" ");
+        for (let i = 0; i < pairs.length; i++) {
+        pair = pairs[i].split(" ");
 
-      matches = array.filter(function (el) {
-        if (el[pair[0]] == pair[1]) {
-          return true;
-        } else {
-          return false;
+        matches = array.filter(function (el) {
+            if (el[pair[0]] == pair[1]) {
+            return true;
+            } else {
+            return false;
+            }
+        });
+
+        if (matches.length == 22){
+            alert('Invalid input. Please try again.')
+            continue;
         }
-      });
-      array = matches;
-    }
-    displayedPeople = displayPeople(matches);
-    if (matches.length >= 1) {
-      alert(displayedPeople.join("\n"));
-    } else if (matches.length === 1) {
-      return matches;
-    } else {
-      alert("No results found.");
-    }
+        else{
 
-    answer = promptFor(
-      "Would you like to continue your search?",
-      yesNo
-    ).toLowerCase();
-    array = matches;
+            
+            array = matches;
+    
+            }
+            displayedPeople = displayPeople(matches);
+            if (matches.length >= 1) {
+            alert(displayedPeople.join("\n"));
+            } else if (matches.length === 1) {
+            return matches;
+            } else {
+            alert("No results found.");
+            }
+
+            answer = promptFor(
+            "Would you like to continue your search?",
+            yesNo
+            ).toLowerCase();
+            array = matches;
+        }
+
+    
   }
+
 
   return app(people);
 }
