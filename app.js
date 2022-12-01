@@ -264,38 +264,42 @@ function findPersonFamily(person, people) {
 // }
 
 
-
-function findPersonDescendants(person, people) {
-    let grandchildren; 
-    
-    if (descendants > 0){
-        gradchildren = descendants;
-    }
-    
-    descendants = people.filter(function (el) {
-      if (el.parents.includes(person.id)) {
-        return true;
-      } else {
-        return false;
-      }
+function findPersonDescendants (person, people) {
+    let descendantsList = [];
+    let kids = []; 
+    let descendants = people.filter(function (el) {
+        if (el.parents.includes (person.id)) {
+            return true;
+        } 
+        else {
+            return false;
+        }
     });
     
-    //returns 4 descendants for Joy Madden
-    for (let i = 0; i < descendants.length; i++){
-        findPersonDescendants(descendants[i], people);
-    }
-    
+    if (descendants.length > 0){
+        for (let i = 0; i < descendants.length; i++) {
+            //for each original descendant, do the original function. 
+            descendantsList = findPersonDescendants(descendants[i], people);
+            if (descendantsList.length > 0){
+                kids += descendantsList;   
+            };     
+            
+        }
 
-    let add = descendants.map(function (el) {
+    }
+
+    let add = descendants.map(function(el) {
         return `${el.firstName} ${el.lastName}`;
     });
-      
-    return add.join("\n");
-  }
+
+ 
+    return `${add.join("\n")} \n${kids}`;
+}
 
 
 
-  
+
+
 function searchByTraits(people) {
   let trait;
   let matches;
