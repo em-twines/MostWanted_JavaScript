@@ -246,22 +246,57 @@ function findPersonFamily(person, people) {
     return `${spouses} \n${parents} \n${sibling}`
 }
 
-function findPersonDescendants(person, people) {
-  let descendants = people.filter(function (el) {
-    if (el.parents.includes(person.id)) {
-      return true;
-    } else {
-      return false;
-    }
-  });
-  let add = descendants.map(function (el) {
-    return `${el.firstName} ${el.lastName}`;
-  });
-  return add.join("\n");
-}
 
+
+
+// function findPersonDescendants(person, people) {
+//   let descendants = people.filter(function (el) {
+//     if (el.parents.includes(person.id)) {
+//       return true;
+//     } else {
+//       return false;
+//     }
+//   });
+//   let add = descendants.map(function (el) {
+//     return `${el.firstName} ${el.lastName}`;
+//   });
+//   return add.join("\n");
+// }
+
+
+
+function findPersonDescendants(person, people) {
+    let grandchildren; 
+    
+    if (descendants > 0){
+        gradchildren = descendants;
+    }
+    
+    descendants = people.filter(function (el) {
+      if (el.parents.includes(person.id)) {
+        return true;
+      } else {
+        return false;
+      }
+    });
+    
+    //returns 4 descendants for Joy Madden
+    for (let i = 0; i < descendants.length; i++){
+        findPersonDescendants(descendants[i], people);
+    }
+    
+
+    let add = descendants.map(function (el) {
+        return `${el.firstName} ${el.lastName}`;
+    });
+      
+    return add.join("\n");
+  }
+
+
+
+  
 function searchByTraits(people) {
-  //ex: {height: 76}
   let trait;
   let matches;
   let pair;
@@ -284,9 +319,7 @@ function searchByTraits(people) {
         return;
     }
 
-    pairs = trait.split(";");
-    // pair = pairs.split(" ");
-        
+    pairs = trait.split(";");      
         //key trait[0];
         //value trait[1];
     for (let i = 0; i < pairs.length; i++) {
