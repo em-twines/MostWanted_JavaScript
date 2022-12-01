@@ -268,60 +268,80 @@ function searchByTraits(people) {
   let displayedPeople;
   let array = people;
   let pairs;
+
+
   let answer = "yes";
   
   while (answer == "yes") {
     trait = prompt(
     "Please type in search criteria without spaces then value. Separate multiple criteria by a semicolon (no spaces around the semicolon). You can also select 'restart' or 'quit'."
-    );     
-        if(trait.length > 1 && !trait.includes(';')){
-            alert('Invalid input, please try again.')
-            continue;
-        }
-        pairs = trait.split(";");
+    ); 
+    
+    if(trait.toLowerCase() == 'restart'){
+        return app(people);
+    }
+    else if (trait.toLowerCase() == 'quit'){
+        return;
+    }
+
+    pairs = trait.split(";");
+    // pair = pairs.split(" ");
+        
         //key trait[0];
         //value trait[1];
-
-        for (let i = 0; i < pairs.length; i++) {
+    for (let i = 0; i < pairs.length; i++) {
         pair = pairs[i].split(" ");
 
         matches = array.filter(function (el) {
             if (el[pair[0]] == pair[1]) {
-            return true;
-            } else {
-            return false;
+                return true;
+            } 
+            else {
+                return false;
             }
         });
 
-        if (matches.length == 22){
-            alert('Invalid input. Please try again.')
+        array = matches;
+
+        
+        let inputArray = ['id', 'firstName','lastName','gender','dob','height','weight','eyeColor','occupation','parents','currentSpouse']
+
+        if (i == 0){
+            for (let i = 0; i < pairs.length; i++) {
+                if (i%2 == 0){
+                    if (!inputArray.includes(pair[i])){
+                        alert('Invalid input, please try again.')
+                        continue;
+                    }
+                    
+                }
+           
+            }
+        }
+    }
+            
+        if(pair.length > 2 && !trait.includes(';') || trait.includes('; ')|| trait.includes(' ; ') || matches.length == 22){
+            alert('Invalid input, please try again.')
             continue;
         }
-        else{
 
-            
-            array = matches;
-    
-            }
-            displayedPeople = displayPeople(matches);
-            if (matches.length >= 1) {
+        displayedPeople = displayPeople(matches);
+
+        if (matches.length >= 1) {
             alert(displayedPeople.join("\n"));
-            } else if (matches.length === 1) {
+        } 
+        else if (matches.length === 1) {
             return matches;
-            } else {
+        } 
+        else {
             alert("No results found.");
-            }
-
-            answer = promptFor(
-            "Would you like to continue your search?",
-            yesNo
-            ).toLowerCase();
-            array = matches;
+            continue;
         }
+        
 
-    
-  }
+        answer = promptFor("Would you like to continue your search? (yes/no)", yesNo).toLowerCase();
+        array = matches;
+    }
 
-
-  return app(people);
+    return mainMenu(matches, people);
 }
