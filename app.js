@@ -274,10 +274,10 @@ function searchByTraits(people) {
     trait = prompt(
     "Please type in search criteria without spaces then value. Separate multiple criteria by a semicolon (no spaces around the semicolon). You can also select 'restart' or 'quit'."
     );     
-        // if(trait.length > 1 && !trait.includes(';')){
-        //     alert('Invalid input, please try again.')
-        //     continue;
-        // }
+        if(trait.length > 1 && !trait.includes(';')){
+            alert('Invalid input, please try again.')
+            continue;
+        }
         pairs = trait.split(";");
         //key trait[0];
         //value trait[1];
